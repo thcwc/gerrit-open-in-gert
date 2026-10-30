@@ -3,7 +3,8 @@
 A Gerrit web UI plugin that opens the change you are looking at in
 [gert](https://github.com/broeng/gert), the desktop Gerrit client.
 
-- **Open in gert** button in the change's action bar.
+- **Open in gert** button in the change's action bar. It is left out on
+  touch-only devices (phones, tablets), where there is no gert to open.
 - **`O`** (Shift+o) on a change or diff page. It is ignored while you type in a
   text field or dialog, and when you turned off keyboard shortcuts in your
   Gerrit preferences.
@@ -20,6 +21,11 @@ are looking at.
 2. The first time, the browser asks whether to open the link with xdg-open
    (or gert). In Chrome, tick **Always allow <your Gerrit> to open links of
    this type** and click **Open link**.
+
+If the browser says no apps are available for the link right after you
+installed gert, the desktop portal (which the browser asks) still has the old
+list of apps: log out and back in, or restart it with
+`systemctl --user restart xdg-desktop-portal.service`.
 
 Each link opens a new gert window; gert cannot yet hand links to a running
 instance.
