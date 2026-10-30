@@ -22,10 +22,16 @@ Gerrit.install(plugin => {
     if (link) location.href = link;
   }
 
+  // gert is a desktop app: on a device with only touch input (a phone or
+  // tablet) the link has nowhere to go, so leave the button out. A laptop
+  // with a touchscreen still has a fine pointer and keeps it.
+  const desktop = window.matchMedia('(any-pointer: fine)').matches;
+
   // The change view may create a new action bar, so add the button once
   // per action bar element rather than once per page load.
   const actionBars = new WeakSet();
   plugin.on('showchange', () => {
+    if (!desktop) return;
     const actions = plugin.changeActions();
     const bar = actions.ensureEl();
     if (!bar || actionBars.has(bar)) return;
